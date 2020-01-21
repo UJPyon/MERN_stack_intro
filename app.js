@@ -17,7 +17,6 @@ mongoose
 
 app.get("/", (req, res) => {
   console.log(res);
-  debugger
   res.send("Hello World");
 });
 app.use("/api/users", users);
