@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const app = express();
 const db = require("./config/keys").mongoURI;
 const port = process.env.PORT || 5000;
+const users = require("./routes/api/users");
+const tweets = require("./routes/api/tweets");
 
 mongoose
   .connect(db, { 
@@ -12,5 +14,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 
-app.get("/", (req, res) => res.send("Test Text"));
+app.get("/", (req, res) => res.send("Hello World"));
+app.use("/api/users", users);
+app.use("/api/tweets", tweets);
 app.listen(port, () => console.log(`Server is running on ${port}`));
