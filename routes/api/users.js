@@ -6,9 +6,23 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const bcrypt = require("bcryptjs");
 const User = require("../../models/User");
+const passport = require("passport");
 
 // --GET Route for Users--
 router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
+
+// --GET Private auth route--
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({
+      id: req.user.id,
+      handle: req.user.handle,
+      email: req.user.email
+    });
+  }
+);
 
 // -- POST Route for creating new Users--
 router.post("/register", (req, res) => {
